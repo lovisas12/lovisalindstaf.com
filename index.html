@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lovisa Lindstaf · Multidisciplinary designer</title>
+<meta name="description" content="Lovisa Lindstaf is a multidisciplinary designer in Stockholm working across product, brand, experience and communication.">
+<link rel="canonical" href="https://lovisalindstaf.com/">
+<meta property="og:title" content="Lovisa Lindstaf · Multidisciplinary designer">
+<meta property="og:description" content="I turn ideas into experiences people want to be part of.">
+<meta property="og:url" content="https://lovisalindstaf.com/">
+<meta property="og:image" content="https://lovisalindstaf.com/assets/hero-cover-palm-2.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#EDE8E0">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="site" id="top">
+
+<header class="nav" id="nav">
+  <div class="nav-bar">
+    <nav class="nav-links">
+      <a href="#work" data-go="home" data-target="work">Work</a>
+      <a href="#about" data-go="about" id="nav-about">About</a>
+      <a href="#experience" data-go="home" data-target="experience">Experience</a>
+    </nav>
+    <div class="nav-links">
+      <a href="#contact" data-go="stay" data-target="contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<div data-view="home">
+  <section class="hero" data-screen-label="Hero">
+    <div class="hero-inner">
+      <div class="hero-stage">
+        <h1 class="hero-name"><span>Lovisa</span><span>Lindstaf</span></h1>
+        <div class="hero-portrait">
+          <img src="assets/hero-cover-palm-2.png" alt="Portrait of Lovisa Lindstaf" fetchpriority="high">
+        </div>
+        <div class="hero-copy">
+          <p class="hero-lead">I turn ideas into experiences people want to be part of.</p>
+          <a href="#work" class="pill-btn" data-go="home" data-target="work">See the work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div data-view="about" hidden>
+  <section id="about" class="about" data-screen-label="About page">
+    <div class="about-inner">
+      <div class="about-text">
+        <span class="about-hello">Hello!</span>
+        <p class="about-intro">I'm Lovisa, a multidisciplinary designer who likes being where things are still taking shape.</p>
+        <p>My foundation is UX. Over the years the work has grown outward into product and visual design, brand, startups and technology, communication, events and the people who make things happen.</p>
+        <p>What ties it together is the moment before anything is defined. A rough idea, a few conversations, a lot of possibility. I like turning that into something people can see, understand and want to be part of, then staying close enough to see it launch.</p>
+        <p>I do my best work with others: founders with conviction, teams who care about taste, stakeholders who need a clear picture. Strategy and aesthetics, words and interfaces: to me, it's the same conversation.</p>
+        <div class="steps" id="steps"></div>
+      </div>
+      <div class="about-side">
+        <div class="about-title">About me</div>
+        <div class="about-photo">
+          <div class="frame" style="--s:1.1009;--x:10.49%;--y:-2.634%">
+            <img src="assets/contact-portrait.jpeg" alt="Lovisa Lindstaf" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div data-view="home">
+  <section id="capabilities" class="caps" data-screen-label="What I do">
+    <div class="caps-inner">
+      <h2 class="caps-title">What I do</h2>
+      <div class="caps-body">
+        <p class="caps-headline">I make things that <span class="word-box"><span class="word-track" id="word-track"></span></span></p>
+        <div class="caps-tabs" id="caps-tabs"></div>
+        <div class="caps-foot">
+          <p class="caps-desc" id="caps-desc" aria-live="polite"></p>
+          <p class="caps-note">Not four departments. One way of working. I move between them so the idea stays whole.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="work"></section>
+
+  <section id="experience" class="experience" data-screen-label="Experience">
+    <div class="experience-inner">
+      <div class="experience-card">
+        <h2 class="experience-title">Experience</h2>
+        <div id="experience-list"></div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer id="contact" class="contact" data-screen-label="Contact">
+  <div class="contact-inner">
+    <div class="contact-col">
+      <div class="contact-card">
+        <span class="eyebrow">Let's talk</span>
+        <span class="contact-title">Have an idea that's still taking shape?</span>
+        <div class="contact-actions">
+          <a href="mailto:l.lindstaf@outlook.com" class="contact-mail">l.lindstaf@outlook.com</a>
+          <a href="https://www.linkedin.com/in/lovisa-lindstaf" target="_blank" rel="noopener" class="contact-outline">LinkedIn</a>
+          <a href="#top" class="contact-top" id="to-top">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-bottom">
+    <span>© 2026 Lovisa Lindstaf</span><span>Stockholm, Sweden</span>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Case study"></div>
+
+</div>
+<script src="main.js"></script>
+</body>
+</html>

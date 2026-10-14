@@ -69,9 +69,41 @@
   const total = pad(PROJECTS.length);
 
   const frame = (m, lazy = true) =>
-    `<div class="frame" style="--s:${m.s ?? 1};--x:${m.x ?? 0}%;--y:${m.y ?? 0}%"><img src="${m.src}" alt="${esc(m.alt || '')}"${lazy ? ' loading="lazy"' : ''}></div>`;
+    `<div class="frame" data-s="${m.s ?? 1}" data-x="${m.x ?? 0}" data-y="${m.y ?? 0}"><img src="${m.src}" alt="${esc(m.alt || '')}"${lazy ? ' loading="lazy"' : ''}></div>`;
   const video = (src, controls) =>
-    `<video src="${src}" autoplay muted loop playsinline${controls ? ' controls' : ''}></video>`;
+    `<video src="${src}" muted loop playsinline preload="metadata"${controls ? ' controls' : ''}></video>`;
+
+  // Same geometry as the design's image slots: cover-fill the frame, scale by s,
+  // centre at (50+x)% / (50+y)% of the frame, clamped so no edge shows.
+  const layoutFrame = img => {
+    const f = img.parentElement, iw = img.naturalWidth, ih = img.naturalHeight, fw = f.clientWidth, fh = f.clientHeight;
+    if (!iw || !ih || !fw || !fh) return;
+    const s = +f.dataset.s || 1;
+    const k = Math.max(fw / iw, fh / ih) * s;
+    const mx = Math.max(0, (iw * k / fw - 1) * 50), my = Math.max(0, (ih * k / fh - 1) * 50);
+    const x = Math.max(-mx, Math.min(mx, +f.dataset.x || 0)), y = Math.max(-my, Math.min(my, +f.dataset.y || 0));
+    Object.assign(img.style, { width: iw * k / fw * 100 + '%', height: ih * k / fh * 100 + '%', left: 50 + x + '%', top: 50 + y + '%' });
+    img.classList.add('is-framed');
+  };
+  // Re-layout whenever a frame gets a size (also when a hidden view becomes visible).
+  const frameObserver = new ResizeObserver(entries => entries.forEach(e => {
+    const img = e.target.querySelector('img');
+    if (img) layoutFrame(img);
+  }));
+  const initFrames = root => root.querySelectorAll('.frame > img').forEach(img => {
+    img.addEventListener('load', () => layoutFrame(img));
+    frameObserver.observe(img.parentElement);
+    layoutFrame(img);
+  });
+
+  // Videos only play while on screen.
+  const videoObserver = 'IntersectionObserver' in window && new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { const p = e.target.play(); if (p && p.catch) p.catch(() => {}); } else e.target.pause();
+  }), { threshold: 0.4 });
+  const initVideos = root => root.querySelectorAll('video').forEach(v => {
+    v.muted = true;
+    if (videoObserver) videoObserver.observe(v); else v.autoplay = true;
+  });
 
   // ---------- Views (home / about) ----------
   let view = 'home';
@@ -217,7 +249,8 @@
           </button>
         </div>
       </article>`;
-    overlay.querySelectorAll('video').forEach(v => { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); });
+    initFrames(overlay);
+    initVideos(overlay);
   };
 
   overlay.addEventListener('click', e => {
@@ -255,6 +288,8 @@
     history.replaceState(null, '', '#case-' + PROJECTS[n].id);
   }
   window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  initFrames(document);
 
   // ---------- Deep links ----------
   const hash = location.hash.slice(1);
